@@ -1,0 +1,10 @@
+Candidate c007  -  Vikram Rao
+Outcome: in_progress
+------------------------------------------------------------
+CANDIDATE: yes
+CANDIDATE: abc@gmail
+CANDIDATE: idk
+CANDIDATE: mpstme
+------------------------------------------------------------
+Fields written: none
+Notes: Chat ended before completion. Still needed: email, college, degree, branch, graduation_year, cgpa, preferred_location, available_from, internship_duration_months.

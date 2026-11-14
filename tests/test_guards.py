@@ -17,6 +17,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from agent import validators as V          # noqa: E402
+from agent.core import tidy                # noqa: E402
 from agent.tools import _candidate_said    # noqa: E402
 
 
@@ -80,6 +81,41 @@ VALIDATION_CASES = [
 ]
 
 
+# (label, raw model output, what the candidate should see)
+TIDY_CASES = [
+    ("four questions stacked",
+     "Which college are you currently attending? What degree are you pursuing "
+     "(e.g., B.Tech, B.Sc, etc.)? Sorry, I missed that-could you tell me the name of "
+     "your college? Which branch are you studying (e.",
+     "Which college are you currently attending?"),
+    ("narrates the reply",
+     "Do you mean June 2027? If so, give a date?User's response not yet provided.",
+     "Do you mean June 2027?"),
+    ("loops a sentence",
+     "Could you confirm your email address? Could you confirm your email address?",
+     "Could you confirm your email address?"),
+    ("trailing dots",
+     "How many months would you prefer - 2, 3, or 6?............",
+     "How many months would you prefer - 2, 3, or 6?"),
+    ("stage direction",
+     "Thanks Priya, that is all I needed. (Waiting for your reply)",
+     "Thanks Priya, that is all I needed."),
+    # and the things it must leave alone
+    ("abbreviations survive",
+     "What degree are you pursuing (e.g., B.Tech or B.Sc)?",
+     "What degree are you pursuing (e.g., B.Tech or B.Sc)?"),
+    ("ordinary greeting",
+     "Hi Priya, this is Riya from ACME Corp about your application. Is this a good time?",
+     "Hi Priya, this is Riya from ACME Corp about your application. Is this a good time?"),
+    ("statement then question",
+     "Got it, thanks. When could you start the internship?",
+     "Got it, thanks. When could you start the internship?"),
+    ("no question at all",
+     "Thanks Priya, I have everything I need. Someone will be in touch soon.",
+     "Thanks Priya, I have everything I need. Someone will be in touch soon."),
+]
+
+
 def main():
     failures = []
 
@@ -97,6 +133,13 @@ def main():
         failures.append(label) if not ok else None
         print("  {} {:<24} {!r} -> {!r}".format(
             "pass" if ok else "FAIL", label, value, got_clean))
+
+    print("\nmessage cleanup")
+    for label, raw, expected in TIDY_CASES:
+        got = tidy(raw)
+        ok = got == expected
+        failures.append(label) if not ok else None
+        print("  {} {:<24} {!r}".format("pass" if ok else "FAIL", label, got[:52]))
 
     print("\nrecord checks")
     dirty = {"full_name": "X Y", "email": "a@b", "cgpa": 85, "graduation_year": 2031}

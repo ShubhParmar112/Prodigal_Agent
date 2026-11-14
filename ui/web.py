@@ -63,8 +63,11 @@ def _emit(event):
         st.session_state.trace.append(("res" if event.meta.get("result") else "req", event.text))
     elif event.kind == SYSTEM:
         st.session_state.trace.append(("sys", event.text))
+        if "switched to" in event.text:
+            st.session_state.banner = ("info", event.text)
     elif event.kind == ERROR:
         st.session_state.trace.append(("err", event.text))
+        st.session_state.banner = ("error", event.text)
     elif event.kind == OUTCOME:
         st.session_state.outcome = {"status": event.text, **(event.data or {})}
 

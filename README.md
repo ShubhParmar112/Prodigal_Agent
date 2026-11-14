@@ -35,7 +35,7 @@ Useful extras:
 ```bash
 python run_cli.py --list     # your 8 candidates, with what each is missing
 python run_cli.py --reset    # restore the workspace to its original data
-python tests/test_guards.py  # 39 checks on validation and the evidence guard
+python tests/test_guards.py  # 48 checks: validation, evidence guard, message cleanup
 ```
 
 **Ending a chat.** Type `/quit` (or `/exit`) to leave, or `/silence` to simulate going quiet.
@@ -165,7 +165,13 @@ missing or invalid — the tool rejects it.
 - c002 (three missing fields): all three asked for and collected, "1 june 2027" stored as
   `2027-06-01`, `completed`. The fabricated-date bug above is gone — re-running the exact
   sequence that triggered it now produces a question instead of an invented value.
-- `tests/test_guards.py`: 39 checks covering validation and the evidence guard, all passing.
+- c004: pulled `college` and `degree` out of a single "MPSTME, BTech IT" reply, confirmed
+  `branch` separately, `completed`.
+- `tests/test_guards.py`: 48 checks covering validation, the evidence guard and message
+  cleanup, all passing.
+- The three transcripts in `runs/` were regenerated after the last fix, so they show current
+  behaviour: a clean completion (c001), dirty data corrected by the candidate (c008), and a
+  candidate asking to continue later (c002).
 - c008: spotted `graduation_year: 2031` unprompted, refused to accept "my CGPA is 85" as a
   10-point value, and on `/quit` recorded `in_progress` with accurate notes.
 - c003: no conversation started, nothing written.
@@ -189,10 +195,13 @@ missing or invalid — the tool rejects it.
   agent loop, the database client and the UIs have no automated tests and were verified by
   running them.
 - **Model dependence, and it is not subtle.** Built against `openai/gpt-oss-120b` on Groq. That
-  model will, unprompted, keep generating past the end of its own message and narrate the reply
-  it has not seen yet ("User's response not yet provided." on repeat). Four stop sequences plus
-  `tidy()` in `core.py` cut that off before the candidate sees it, and `max_tokens` is capped —
-  but it is a workaround for a model quirk, not a fix. A stronger model would not need it.
+  model does not reliably stop at the end of one chat message. It stacks several questions into
+  one bubble, invents the candidate's reply and answers it ("Sorry, I missed that — could you
+  tell me…" before they have said anything), and loops a sentence until it runs out of tokens.
+  No amount of prompt wording stopped it, so `tidy()` in `core.py` enforces it structurally:
+  one question per message, narration cut, loops truncated. Four stop sequences and a
+  `max_tokens` cap help. All of it is a workaround for a weak model, not a fix — a stronger
+  model would need none of it, and `tidy()` is the first thing to delete when one is available.
 - The agent writes `notes` as a single string, overwriting any previous note rather than
   appending to a history.
 

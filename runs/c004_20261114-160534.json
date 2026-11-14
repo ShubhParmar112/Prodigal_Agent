@@ -1,0 +1,238 @@
+{
+  "candidate_id": "c004",
+  "started_at": "2026-11-14T16:04:04+05:30",
+  "ended_at": "2026-11-14T16:05:34+05:30",
+  "outcome": "needs_human",
+  "outcome_notes": "Candidate did not provide college, degree, or branch. Degree was asked but not answered. College remains unknown. Branch not asked yet. No further info collected.",
+  "end_reason": "chat window closed",
+  "fields_written": {},
+  "fields_refused": [],
+  "record_at_start_missing": [
+    "college",
+    "degree",
+    "branch"
+  ],
+  "transcript": [
+    {
+      "role": "agent",
+      "text": "Hi Sneha, this is Riya from ACME Corp. I see you applied for an internship. Is this you?",
+      "at": "2026-11-14T16:04:07+05:30"
+    },
+    {
+      "role": "candidate",
+      "text": "yes",
+      "at": "2026-11-14T16:04:07+05:30"
+    },
+    {
+      "role": "agent",
+      "text": "Which college are you currently attending?",
+      "at": "2026-11-14T16:04:09+05:30"
+    },
+    {
+      "role": "candidate",
+      "text": "idk",
+      "at": "2026-11-14T16:04:09+05:30"
+    },
+    {
+      "role": "agent",
+      "text": "I’ll need the name of your college to complete the form—just the short name is fine. If you’re unsure, we can skip it for now and come back later.",
+      "at": "2026-11-14T16:04:29+05:30"
+    },
+    {
+      "role": "candidate",
+      "text": "idk sorry",
+      "at": "2026-11-14T16:04:29+05:30"
+    },
+    {
+      "role": "agent",
+      "text": "Which degree are you pursuing? (e.g., B.Tech, B.E., etc.)",
+      "at": "2026-11-14T16:05:16+05:30"
+    }
+  ],
+  "tool_calls": [
+    {
+      "name": "save_fields",
+      "args": {
+        "full_name": "Sneha Iyer",
+        "reason": "Initial greeting and confirmation of identity"
+      },
+      "result": {
+        "ok": true,
+        "saved": {},
+        "reason": "Initial greeting and confirmation of identity",
+        "already_matched": [
+          "full_name"
+        ],
+        "still_needed": [
+          "college",
+          "degree",
+          "branch"
+        ]
+      },
+      "at": "2026-11-14T16:04:06+05:30"
+    },
+    {
+      "name": "save_fields",
+      "args": {
+        "full_name": "Sneha Iyer",
+        "reason": "Confirming candidate identity"
+      },
+      "result": {
+        "ok": true,
+        "saved": {},
+        "reason": "Confirming candidate identity",
+        "already_matched": [
+          "full_name"
+        ],
+        "still_needed": [
+          "college",
+          "degree",
+          "branch"
+        ]
+      },
+      "at": "2026-11-14T16:04:08+05:30"
+    },
+    {
+      "name": "save_fields",
+      "args": {
+        "reason": "Candidate says they do not know the college name"
+      },
+      "result": {
+        "ok": false,
+        "error": "No field values were given, so nothing was saved."
+      },
+      "at": "2026-11-14T16:04:33+05:30"
+    },
+    {
+      "name": "save_fields",
+      "args": {
+        "reason": "Candidate did not provide college"
+      },
+      "result": {
+        "ok": false,
+        "error": "No field values were given, so nothing was saved."
+      },
+      "at": "2026-11-14T16:04:49+05:30"
+    },
+    {
+      "name": "save_fields",
+      "args": {
+        "reason": "Candidate did not provide college"
+      },
+      "result": {
+        "ok": false,
+        "error": "No field values were given, so nothing was saved."
+      },
+      "at": "2026-11-14T16:05:03+05:30"
+    },
+    {
+      "name": "set_outcome",
+      "args": {
+        "notes": "Candidate did not provide college, degree, or branch. Degree was asked but not answered. College remains unknown. Branch not asked yet. No further info collected.",
+        "status": "needs_human"
+      },
+      "result": {
+        "ok": true,
+        "status": "needs_human",
+        "note": "Outcome recorded. It is written to the database when the chat closes."
+      },
+      "at": "2026-11-14T16:05:29+05:30"
+    }
+  ],
+  "api_calls": [
+    {
+      "method": "GET",
+      "path": "/v1/candidates/c004",
+      "status": 200,
+      "request": null,
+      "response": {
+        "id": "c004",
+        "full_name": "Sneha Iyer",
+        "email": "sneha.iyer@example.com",
+        "college": null,
+        "degree": null,
+        "branch": null,
+        "graduation_year": 2027,
+        "cgpa": 9.1,
+        "preferred_location": "No preference",
+        "available_from": "2027-02-01",
+        "internship_duration_months": 3,
+        "linkedin_url": null,
+        "github_url": null,
+        "skills": null,
+        "phone": "+915739413350",
+        "collection_status": "pending",
+        "attempt_count": 0,
+        "last_contacted_at": null,
+        "notes": null,
+        "version": 1,
+        "updated_at": "2026-11-14T10:34:03+00:00"
+      },
+      "at": "16:04:05",
+      "headers": {}
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/candidates/c004",
+      "status": 200,
+      "request": {
+        "collection_status": "needs_human",
+        "last_contacted_at": "2026-11-14T16:05:33+05:30",
+        "attempt_count": 1,
+        "notes": "Candidate did not provide college, degree, or branch. Degree was asked but not answered. College remains unknown. Branch not asked yet. No further info collected."
+      },
+      "response": {
+        "id": "c004",
+        "full_name": "Sneha Iyer",
+        "email": "sneha.iyer@example.com",
+        "college": null,
+        "degree": null,
+        "branch": null,
+        "graduation_year": 2027,
+        "cgpa": 9.1,
+        "preferred_location": "No preference",
+        "available_from": "2027-02-01",
+        "internship_duration_months": 3,
+        "linkedin_url": null,
+        "github_url": null,
+        "skills": null,
+        "phone": "+915739413350",
+        "collection_status": "needs_human",
+        "attempt_count": 1,
+        "last_contacted_at": "2026-11-14T16:05:33+05:30",
+        "notes": "Candidate did not provide college, degree, or branch. Degree was asked but not answered. College remains unknown. Branch not asked yet. No further info collected.",
+        "version": 2,
+        "updated_at": "2026-11-14T10:35:34+00:00"
+      },
+      "at": "16:05:34",
+      "headers": {
+        "Content-Type": "application/json",
+        "Idempotency-Key": "df239e16-a5a4-42f4-a97f-03852a301ef6",
+        "If-Match": "\"1\""
+      }
+    }
+  ],
+  "final_record": {
+    "id": "c004",
+    "full_name": "Sneha Iyer",
+    "email": "sneha.iyer@example.com",
+    "college": null,
+    "degree": null,
+    "branch": null,
+    "graduation_year": 2027,
+    "cgpa": 9.1,
+    "preferred_location": "No preference",
+    "available_from": "2027-02-01",
+    "internship_duration_months": 3,
+    "linkedin_url": null,
+    "github_url": null,
+    "skills": null,
+    "phone": "+915739413350",
+    "collection_status": "needs_human",
+    "attempt_count": 1,
+    "last_contacted_at": "2026-11-14T16:05:33+05:30",
+    "notes": "Candidate did not provide college, degree, or branch. Degree was asked but not answered. College remains unknown. Branch not asked yet. No further info collected.",
+    "version": 2,
+    "updated_at": "2026-11-14T10:35:34+00:00"
+  }
+}

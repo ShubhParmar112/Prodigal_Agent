@@ -12,26 +12,59 @@ import re
 
 from . import prompts
 from .events import AGENT, ERROR, OUTCOME, SYSTEM, TOOL, Event
-from .llm import LLMError
+from .llm import LLMError, ToolCallInvalid
 from .state import ConversationState, now_iso
 from .tools import SCHEMAS, ToolBox, describe
 
 MAX_TOOL_ROUNDS = 6
 
-# Narration the model sometimes writes instead of stopping at its own message.
-_META = re.compile(
-    r"^\(?\s*(?:user'?s?\s+response|candidate'?s?\s+response|awaiting|waiting for|"
-    r"no response|not yet provided|no reply)", re.I)
+# Narration the model writes when it carries on past the end of its own message.
+_META = [re.compile(p, re.I) for p in (
+    r"user'?s?\s+response", r"candidate'?s?\s+response", r"not yet provided",
+    r"\(\s*waiting", r"awaiting\s+(?:your\s+)?(?:reply|response)",
+    r"no\s+(?:reply|response)\s+yet",
+)]
+
+# A sentence, with its offset kept so the original text can be sliced intact.
+_SENTENCE = re.compile(r"[^.!?]+[.!?]+|\S[^.!?]*$")
+
+# Which field a question is about. Used to notice the agent asking the same
+# thing twice - wording alone is useless, because "Which college are you
+# attending?" and "What is the name of your institute?" share almost no words.
+_TOPIC_WORDS = {
+    "email": ("email", "e-mail", "mail address"),
+    "college": ("college", "university", "institute", "studying at", "study at"),
+    "degree": ("degree", "course", "programme", "program", "b.tech", "btech"),
+    "branch": ("branch", "specialis", "specializ", "stream", "major", "discipline"),
+    "graduation_year": ("graduat", "passing out", "pass out", "final year"),
+    "cgpa": ("cgpa", "gpa", "grade point", "marks", "score"),
+    "preferred_location": ("location", "city", "based", "mumbai", "bengaluru", "remote"),
+    "available_from": ("start", "available", "join", "begin", "when could you"),
+    "internship_duration_months": ("duration", "how long", "months", "how many month"),
+}
+
+
+def topic_of(text):
+    """Best guess at which field a message is asking about, or None."""
+    if not text:
+        return None
+    low = text.lower()
+    best, score = None, 0
+    for field, words in _TOPIC_WORDS.items():
+        hits = sum(1 for w in words if w in low)
+        if hits > score:
+            best, score = field, hits
+    return best
 
 
 def tidy(text):
     """Clean model output before the candidate ever sees it.
 
-    gpt-oss will occasionally keep generating past the end of its own message
-    and start narrating the turn it has not seen - rows of dots, a
-    parenthetical aside, or 'User's response not yet provided.' repeated until
-    it runs out of tokens. Stop sequences catch most of it; this catches the
-    rest, and stops at the first repeated sentence.
+    gpt-oss does not reliably stop at the end of one chat message. It stacks
+    several questions together, invents the candidate's reply and answers it,
+    or loops a sentence until it runs out of tokens. Everything here works by
+    finding where to cut and slicing the original string - never by splitting
+    and rejoining, which would mangle "e.g." and "B.Tech".
     """
     if not text:
         return text
@@ -39,20 +72,35 @@ def tidy(text):
     text = re.sub(r"([.!?,])\1{2,}", r"\1", text.strip())
     text = re.sub(r"([?!])\.+", r"\1", text)  # "6?......" -> "6?"
 
-    kept, seen = [], set()
-    for sentence in re.findall(r"[^.!?]+[.!?]*", text):
-        stripped = sentence.strip()
-        if not stripped:
-            continue
-        if _META.match(stripped) or "not yet provided" in stripped.lower():
-            break                       # everything after this is narration
-        key = stripped.lower()
-        if key in seen:
-            break                       # it has started looping
-        seen.add(key)
-        kept.append(stripped)
+    cuts = []
 
-    return re.sub(r"[ \t]{2,}", " ", " ".join(kept)).strip()
+    # 1. narration about a turn that has not happened
+    for pattern in _META:
+        found = pattern.search(text)
+        if found:
+            cuts.append(found.start())
+
+    # 2. more than one question in a message - keep only the first
+    marks = [m.start() for m in re.finditer(r"\?", text)]
+    if len(marks) > 1:
+        cuts.append(marks[0] + 1)
+
+    # 3. a sentence repeating itself. Short fragments are skipped so that
+    #    abbreviations like "B." are never mistaken for sentences.
+    seen = set()
+    for match in _SENTENCE.finditer(text):
+        sentence = match.group().strip().lower()
+        if len(sentence) < 20:
+            continue
+        if sentence in seen:
+            cuts.append(match.start())
+            break
+        seen.add(sentence)
+
+    if cuts:
+        text = text[:min(cuts)]
+
+    return re.sub(r"[ \t]{2,}", " ", text).strip()
 
 
 class Agent:
@@ -63,6 +111,8 @@ class Agent:
         self.state = ConversationState(candidate_id=candidate_id)
         self.tools = ToolBox(db, self.state, self.emit)
         self.messages = [{"role": "system", "content": prompts.system_prompt()}]
+        self._last_topic = None      # what the previous message asked about
+        self._saved_when_asked = 0   # how much was stored at that point
 
     # ------------------------------------------------------------ lifecycle
 
@@ -129,35 +179,77 @@ class Agent:
 
     def _turn(self, announce=True):
         """One exchange: call the model, run any tools it asks for, repeat."""
+        nudged = False
         for _ in range(MAX_TOOL_ROUNDS):
             try:
                 reply = self.llm.complete(self.messages, SCHEMAS)
+            except ToolCallInvalid:
+                # Usually save_fields called with an empty placeholder value.
+                # Coach it and let the loop retry rather than breaking the chat.
+                self.emit(Event(SYSTEM, "invalid tool call from the model; asking it to retry"))
+                self.messages.append({"role": "user", "content": prompts.BAD_TOOL_CALL})
+                continue
             except LLMError as exc:
+                # The candidate is sitting there waiting, so they must be told
+                # something. Returning silently is how the chat appears to hang.
                 self.emit(Event(ERROR, str(exc)))
-                return ("Sorry, I am having a technical problem at my end. "
-                        "Can I message you again shortly?")
+                return self._apologise(announce)
+
+            if reply.note:
+                self.emit(Event(SYSTEM, reply.note))
 
             self.messages.append(self._assistant_message(reply))
 
             if not reply.wants_tools:
                 text = tidy(reply.content)
+
+                # Asking about the same field again, with nothing collected in
+                # between, is the "idk" loop: rephrasing the question does not
+                # help, so make it change tack instead.
+                topic = topic_of(text)
+                if (announce and not nudged and topic and topic == self._last_topic
+                        and len(self.state.saved) == self._saved_when_asked):
+                    nudged = True
+                    self.emit(Event(SYSTEM,
+                                    "asked about {} again; nudging it to change tack".format(topic)))
+                    self.messages.append({"role": "user",
+                                          "content": prompts.repeated_question(topic)})
+                    continue
+
                 if text and announce:
+                    self._last_topic = topic
+                    self._saved_when_asked = len(self.state.saved)
                     self.state.add_message("agent", text)
                     self.emit(Event(AGENT, text))
                 return text
 
+            refused, did_nothing = {}, []
             for call in reply.tool_calls:
                 self.emit(Event(TOOL, describe(call["name"], call["args"]),
                                 data={"name": call["name"], "args": call["args"]}))
                 result = self.tools.run(call["name"], call["args"])
                 self.emit(Event(TOOL, "  -> {}".format(self._summarise(result)),
                                 data={"result": result}, meta={"result": True}))
+                if isinstance(result, dict) and result.get("rejected"):
+                    refused.update(result["rejected"])
+                elif isinstance(result, dict) and not result.get("ok") and result.get("error"):
+                    did_nothing.append(result["error"])
                 self.messages.append({
                     "role": "tool",
                     "tool_call_id": call["id"],
                     "name": call["name"],
                     "content": json.dumps(result, ensure_ascii=False, default=str),
                 })
+
+            # A tool result alone is too easy to skim past - the model will thank
+            # the candidate for a value that was never stored. Spell it out.
+            if refused and not self.state.ended:
+                self.messages.append({"role": "user",
+                                      "content": prompts.rejection_followup(refused)})
+            elif did_nothing and not self.state.ended:
+                # e.g. save_fields with no values - otherwise it just tries again.
+                self.messages.append({"role": "user",
+                                      "content": prompts.tool_did_nothing(did_nothing)})
 
             if self.state.ended:
                 # end_conversation was called; anything it said alongside still counts
@@ -168,7 +260,16 @@ class Agent:
                 return closing
 
         self.emit(Event(ERROR, "the model kept calling tools without replying; stopping the turn"))
-        return "Sorry, something went wrong at my end. I will have someone follow up with you."
+        return self._apologise(announce)
+
+    def _apologise(self, announce=True):
+        """Say something to the candidate when the model could not be reached."""
+        text = ("Sorry, I am having a technical problem at my end. "
+                "Can I message you again shortly?")
+        if announce:
+            self.state.add_message("agent", text)
+            self.emit(Event(AGENT, text))
+        return text
 
     @staticmethod
     def _assistant_message(reply):

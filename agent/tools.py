@@ -22,32 +22,29 @@ SAVE_FIELDS = {
     "function": {
         "name": "save_fields",
         "description": (
-            "Save one or more confirmed answers to the candidate's record. Call this as soon as "
-            "the candidate gives you a clear answer; do not batch everything to the end. Only "
-            "include fields the candidate actually told you in this conversation."
+            "Save confirmed answers. Call as soon as the candidate gives one; do not batch. "
+            "Only include values they actually told you. Never call it with an empty or "
+            "placeholder value - to ask a question, just write the message."
         ),
         "parameters": {
             "type": "object",
             "properties": {
-                "email": {"type": "string", "description": "Valid email address."},
+                "email": {"type": "string"},
                 "college": {"type": "string"},
                 "degree": {"type": "string", "enum": V.DEGREES},
-                "branch": {"type": "string",
-                           "description": "Specialisation, e.g. Computer Engineering."},
-                "graduation_year": {"type": "integer", "description": "2026, 2027 or 2028."},
-                "cgpa": {"type": "number", "description": "On a 10-point scale, e.g. 8.4."},
+                "branch": {"type": "string", "description": "Specialisation, e.g. Computer Engineering."},
+                "graduation_year": {"type": "integer"},
+                "cgpa": {"type": "number", "description": "10-point scale."},
                 "preferred_location": {"type": "string", "enum": V.LOCATIONS},
-                "available_from": {"type": "string",
-                                   "description": "YYYY-MM-DD, between 2026-01-01 and 2027-12-31."},
+                "available_from": {"type": "string", "description": "YYYY-MM-DD."},
                 "internship_duration_months": {"type": "integer", "enum": V.DURATIONS},
                 "linkedin_url": {"type": "string"},
                 "github_url": {"type": "string"},
                 "skills": {"type": "array", "items": {"type": "string"}},
-                "full_name": {"type": "string",
-                              "description": "Only if the candidate corrects their own name."},
+                "full_name": {"type": "string", "description": "Only if they correct their own name."},
                 "reason": {
                     "type": "string",
-                    "description": "One line on what the candidate said that led to this save.",
+                    "description": "What they said that led to this save.",
                 },
             },
             "required": ["reason"],
@@ -60,8 +57,7 @@ SET_OUTCOME = {
     "function": {
         "name": "set_outcome",
         "description": (
-            "Record how this conversation ended. Call this once, near the end. "
-            "'completed' only when nothing is outstanding."
+            "Record how this chat ended. Call once, near the end. 'completed' only when nothing is left."
         ),
         "parameters": {
             "type": "object",
@@ -73,8 +69,7 @@ SET_OUTCOME = {
                 "notes": {
                     "type": "string",
                     "description": (
-                        "Context for the human or the next conversation: what is still needed, "
-                        "which fields were refused, any time the candidate suggested calling back."
+                        "What is still needed, what was refused, any callback time they gave."
                     ),
                 },
             },
@@ -88,8 +83,7 @@ REFRESH = {
     "function": {
         "name": "refresh_candidate",
         "description": (
-            "Re-read the candidate's record from the database. Use this if a save failed because "
-            "the record changed, or if you need to check what is currently stored."
+            "Re-read the record. Use after a save failed because the record changed."
         ),
         "parameters": {"type": "object", "properties": {}},
     },
@@ -100,14 +94,12 @@ FLAG_HUMAN = {
     "function": {
         "name": "flag_for_human",
         "description": (
-            "Hand this candidate to a human. Use when the record is disputed or contradictory, "
-            "the candidate is upset, they say it is not their application, or you simply cannot "
-            "resolve the situation."
+            "Hand to a human: disputed or contradictory record, upset candidate, or not their application."
         ),
         "parameters": {
             "type": "object",
             "properties": {
-                "reason": {"type": "string", "description": "What happened, for the human."},
+                "reason": {"type": "string"},
             },
             "required": ["reason"],
         },
@@ -119,7 +111,7 @@ END = {
     "function": {
         "name": "end_conversation",
         "description": (
-            "Close the chat. Call this after set_outcome, once there is nothing left to say."
+            "Close the chat. Call after set_outcome."
         ),
         "parameters": {
             "type": "object",
