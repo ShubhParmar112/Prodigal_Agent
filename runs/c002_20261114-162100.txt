@@ -1,0 +1,11 @@
+Candidate c002  -  Priya Nair
+Outcome: in_progress
+------------------------------------------------------------
+AGENT:     Sorry, I am having a technical problem at my end. Can I message you again shortly?
+CANDIDATE: yes
+AGENT:     Sorry, I am having a technical problem at my end. Can I message you again shortly?
+CANDIDATE: can we do this tomorrow evening around 6pm? im in a lecture right now
+AGENT:     Sorry, I am having a technical problem at my end. Can I message you again shortly?
+------------------------------------------------------------
+Fields written: none
+Notes: Chat ended before completion. Still needed: graduation_year, available_from, internship_duration_months.

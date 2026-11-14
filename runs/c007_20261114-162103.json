@@ -1,0 +1,162 @@
+{
+  "candidate_id": "c007",
+  "started_at": "2026-11-14T16:21:01+05:30",
+  "ended_at": "2026-11-14T16:21:03+05:30",
+  "outcome": "in_progress",
+  "outcome_notes": "Chat ended before completion. Still needed: college, degree, branch, graduation_year, cgpa, preferred_location, available_from, internship_duration_months.",
+  "end_reason": "chat window closed",
+  "fields_written": {},
+  "fields_refused": [],
+  "record_at_start_missing": [
+    "college",
+    "degree",
+    "branch",
+    "graduation_year",
+    "cgpa",
+    "preferred_location",
+    "available_from",
+    "internship_duration_months"
+  ],
+  "transcript": [
+    {
+      "role": "agent",
+      "text": "Sorry, I am having a technical problem at my end. Can I message you again shortly?",
+      "at": "2026-11-14T16:21:02+05:30"
+    },
+    {
+      "role": "candidate",
+      "text": "yes",
+      "at": "2026-11-14T16:21:02+05:30"
+    },
+    {
+      "role": "agent",
+      "text": "Sorry, I am having a technical problem at my end. Can I message you again shortly?",
+      "at": "2026-11-14T16:21:02+05:30"
+    },
+    {
+      "role": "candidate",
+      "text": "abc@gmail",
+      "at": "2026-11-14T16:21:02+05:30"
+    },
+    {
+      "role": "agent",
+      "text": "Sorry, I am having a technical problem at my end. Can I message you again shortly?",
+      "at": "2026-11-14T16:21:03+05:30"
+    },
+    {
+      "role": "candidate",
+      "text": "oh sorry its vikram.rao@gmail.com",
+      "at": "2026-11-14T16:21:03+05:30"
+    },
+    {
+      "role": "agent",
+      "text": "Sorry, I am having a technical problem at my end. Can I message you again shortly?",
+      "at": "2026-11-14T16:21:03+05:30"
+    },
+    {
+      "role": "candidate",
+      "text": "mpstme mumbai",
+      "at": "2026-11-14T16:21:03+05:30"
+    },
+    {
+      "role": "agent",
+      "text": "Sorry, I am having a technical problem at my end. Can I message you again shortly?",
+      "at": "2026-11-14T16:21:03+05:30"
+    }
+  ],
+  "tool_calls": [],
+  "api_calls": [
+    {
+      "method": "GET",
+      "path": "/v1/candidates/c007",
+      "status": 200,
+      "request": null,
+      "response": {
+        "id": "c007",
+        "full_name": "Vikram Rao",
+        "email": "vikram.rao@gmail.com",
+        "college": null,
+        "degree": null,
+        "branch": null,
+        "graduation_year": null,
+        "cgpa": null,
+        "preferred_location": null,
+        "available_from": null,
+        "internship_duration_months": null,
+        "linkedin_url": null,
+        "github_url": null,
+        "skills": null,
+        "phone": "+915244151464",
+        "collection_status": "in_progress",
+        "attempt_count": 1,
+        "last_contacted_at": "2026-11-14T16:19:35+05:30",
+        "notes": "Chat ended before completion. Still needed: college, degree, branch, graduation_year, cgpa, preferred_location, available_from, internship_duration_months.",
+        "version": 4,
+        "updated_at": "2026-11-14T10:49:37+00:00"
+      },
+      "at": "16:21:02",
+      "headers": {}
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/candidates/c007",
+      "status": 200,
+      "request": {
+        "last_contacted_at": "2026-11-14T16:21:03+05:30",
+        "attempt_count": 2
+      },
+      "response": {
+        "id": "c007",
+        "full_name": "Vikram Rao",
+        "email": "vikram.rao@gmail.com",
+        "college": null,
+        "degree": null,
+        "branch": null,
+        "graduation_year": null,
+        "cgpa": null,
+        "preferred_location": null,
+        "available_from": null,
+        "internship_duration_months": null,
+        "linkedin_url": null,
+        "github_url": null,
+        "skills": null,
+        "phone": "+915244151464",
+        "collection_status": "in_progress",
+        "attempt_count": 2,
+        "last_contacted_at": "2026-11-14T16:21:03+05:30",
+        "notes": "Chat ended before completion. Still needed: college, degree, branch, graduation_year, cgpa, preferred_location, available_from, internship_duration_months.",
+        "version": 5,
+        "updated_at": "2026-11-14T10:51:04+00:00"
+      },
+      "at": "16:21:03",
+      "headers": {
+        "Content-Type": "application/json",
+        "Idempotency-Key": "39d00b41-6f87-4025-8bad-fc8cda3ece21",
+        "If-Match": "\"4\""
+      }
+    }
+  ],
+  "final_record": {
+    "id": "c007",
+    "full_name": "Vikram Rao",
+    "email": "vikram.rao@gmail.com",
+    "college": null,
+    "degree": null,
+    "branch": null,
+    "graduation_year": null,
+    "cgpa": null,
+    "preferred_location": null,
+    "available_from": null,
+    "internship_duration_months": null,
+    "linkedin_url": null,
+    "github_url": null,
+    "skills": null,
+    "phone": "+915244151464",
+    "collection_status": "in_progress",
+    "attempt_count": 2,
+    "last_contacted_at": "2026-11-14T16:21:03+05:30",
+    "notes": "Chat ended before completion. Still needed: college, degree, branch, graduation_year, cgpa, preferred_location, available_from, internship_duration_months.",
+    "version": 5,
+    "updated_at": "2026-11-14T10:51:04+00:00"
+  }
+}

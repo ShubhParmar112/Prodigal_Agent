@@ -1,0 +1,15 @@
+Candidate c004  -  Sneha Iyer
+Outcome: in_progress
+------------------------------------------------------------
+AGENT:     Sorry, I am having a technical problem at my end. Can I message you again shortly?
+CANDIDATE: yes
+AGENT:     Sorry, I am having a technical problem at my end. Can I message you again shortly?
+CANDIDATE: idk
+AGENT:     Sorry, I am having a technical problem at my end. Can I message you again shortly?
+CANDIDATE: okay mpstme
+AGENT:     Sorry, I am having a technical problem at my end. Can I message you again shortly?
+CANDIDATE: phd
+AGENT:     Sorry, I am having a technical problem at my end. Can I message you again shortly?
+------------------------------------------------------------
+Fields written: none
+Notes: Chat ended before completion. Still needed: college, degree, branch.

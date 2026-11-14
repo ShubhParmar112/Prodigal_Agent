@@ -1,15 +1,15 @@
 Candidate c007  -  Vikram Rao
 Outcome: in_progress
 ------------------------------------------------------------
-AGENT:     Hi Vikram, this is Shubh from ACME Corp. I see your internship application and just wanted to confirm it's really you. Is that correct?
+AGENT:     Sorry, I am having a technical problem at my end. Can I message you again shortly?
 CANDIDATE: yes
-AGENT:     Could you please share your email address?
+AGENT:     Sorry, I am having a technical problem at my end. Can I message you again shortly?
 CANDIDATE: abc@gmail
 AGENT:     Sorry, I am having a technical problem at my end. Can I message you again shortly?
 CANDIDATE: oh sorry its vikram.rao@gmail.com
-AGENT:     What college are you attending?
+AGENT:     Sorry, I am having a technical problem at my end. Can I message you again shortly?
 CANDIDATE: mpstme mumbai
 AGENT:     Sorry, I am having a technical problem at my end. Can I message you again shortly?
 ------------------------------------------------------------
-Fields written: {'email': 'vikram.rao@gmail.com'}
+Fields written: none
 Notes: Chat ended before completion. Still needed: college, degree, branch, graduation_year, cgpa, preferred_location, available_from, internship_duration_months.
