@@ -60,7 +60,7 @@ class TerminalUI:
 
     def on_event(self, event):
         if event.kind == AGENT:
-            self.console.print(Panel(Text(event.text), title="Riya (ACME)",
+            self.console.print(Panel(Text(event.text), title="Shubh (ACME)",
                                      title_align="left", border_style="cyan", padding=(0, 1)))
         elif event.kind == TOOL and self.show_trace:
             style = "dim green" if event.meta.get("result") else "dim cyan"

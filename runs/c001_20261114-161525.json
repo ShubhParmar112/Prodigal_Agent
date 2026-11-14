@@ -1,10 +1,10 @@
 {
   "candidate_id": "c001",
-  "started_at": "2026-11-14T15:41:37+05:30",
-  "ended_at": "2026-11-14T15:41:45+05:30",
+  "started_at": "2026-11-14T16:13:49+05:30",
+  "ended_at": "2026-11-14T16:15:25+05:30",
   "outcome": "completed",
-  "outcome_notes": "Collected email and CGPA; application now complete",
-  "end_reason": "Conversation completed after collecting required fields",
+  "outcome_notes": "All required fields collected",
+  "end_reason": "Chat closed",
   "fields_written": {
     "email": "aarav.mehta@gmail.com",
     "cgpa": 8.4
@@ -14,58 +14,129 @@
   "transcript": [
     {
       "role": "agent",
-      "text": "Hi Aarav, this is Riya from ACME Corp about your internship application. Is this a good time to chat?",
-      "at": "2026-11-14T15:41:39+05:30"
+      "text": "Hi Aarav, this is Shubh from ACME Corp. I’m reaching out about your internship application. Is this you?",
+      "at": "2026-11-14T16:13:53+05:30"
     },
     {
       "role": "candidate",
       "text": "yes thats me",
-      "at": "2026-11-14T15:41:39+05:30"
+      "at": "2026-11-14T16:13:53+05:30"
     },
     {
       "role": "agent",
-      "text": "Great! Could you share the email address you’d like us to use for the application?",
-      "at": "2026-11-14T15:41:41+05:30"
+      "text": "Could you please share your email address?",
+      "at": "2026-11-14T16:13:57+05:30"
     },
     {
       "role": "candidate",
       "text": "its aarav.mehta@gmail.com",
-      "at": "2026-11-14T15:41:41+05:30"
+      "at": "2026-11-14T16:13:57+05:30"
     },
     {
       "role": "agent",
-      "text": "Thanks. What’s your CGPA on a 10‑point scale?",
-      "at": "2026-11-14T15:41:43+05:30"
+      "text": "What is your CGPA on a 10-point scale?",
+      "at": "2026-11-14T16:14:27+05:30"
     },
     {
       "role": "candidate",
       "text": "8.4",
-      "at": "2026-11-14T15:41:43+05:30"
+      "at": "2026-11-14T16:14:27+05:30"
     },
     {
       "role": "agent",
-      "text": "All set, Aarav. Your email and CGPA are recorded. Thanks for confirming, and we’ll be in touch soon.",
-      "at": "2026-11-14T15:41:45+05:30"
+      "text": "Thanks, Aarav! Your application details are now updated. Good luck with the process.",
+      "at": "2026-11-14T16:14:46+05:30"
     }
   ],
   "tool_calls": [
     {
       "name": "save_fields",
       "args": {
+        "full_name": "Aarav Mehta",
+        "reason": "First message greeting and identity confirmation"
+      },
+      "result": {
+        "ok": true,
+        "saved": {},
+        "reason": "First message greeting and identity confirmation",
+        "already_matched": [
+          "full_name"
+        ],
+        "still_needed": [
+          "email",
+          "cgpa"
+        ]
+      },
+      "at": "2026-11-14T16:13:51+05:30"
+    },
+    {
+      "name": "save_fields",
+      "args": {
+        "full_name": "Aarav Mehta",
+        "reason": "Initial greeting and identity confirmation"
+      },
+      "result": {
+        "ok": true,
+        "saved": {},
+        "reason": "Initial greeting and identity confirmation",
+        "already_matched": [
+          "full_name"
+        ],
+        "still_needed": [
+          "email",
+          "cgpa"
+        ]
+      },
+      "at": "2026-11-14T16:13:52+05:30"
+    },
+    {
+      "name": "save_fields",
+      "args": {
+        "full_name": "Aarav Mehta",
+        "reason": "Initial greeting and identity confirmation"
+      },
+      "result": {
+        "ok": true,
+        "saved": {},
+        "reason": "Initial greeting and identity confirmation",
+        "already_matched": [
+          "full_name"
+        ],
+        "still_needed": [
+          "email",
+          "cgpa"
+        ]
+      },
+      "at": "2026-11-14T16:13:53+05:30"
+    },
+    {
+      "name": "save_fields",
+      "args": {
+        "reason": "Asked for email"
+      },
+      "result": {
+        "ok": false,
+        "error": "No field values were given, so nothing was saved."
+      },
+      "at": "2026-11-14T16:13:54+05:30"
+    },
+    {
+      "name": "save_fields",
+      "args": {
         "email": "aarav.mehta@gmail.com",
-        "reason": "Candidate provided email address for application"
+        "reason": "Candidate provided email"
       },
       "result": {
         "ok": true,
         "saved": {
           "email": "aarav.mehta@gmail.com"
         },
-        "reason": "Candidate provided email address for application",
+        "reason": "Candidate provided email",
         "still_needed": [
           "cgpa"
         ]
       },
-      "at": "2026-11-14T15:41:42+05:30"
+      "at": "2026-11-14T16:14:13+05:30"
     },
     {
       "name": "save_fields",
@@ -81,12 +152,12 @@
         "reason": "Candidate provided CGPA",
         "still_needed": []
       },
-      "at": "2026-11-14T15:41:44+05:30"
+      "at": "2026-11-14T16:14:45+05:30"
     },
     {
       "name": "set_outcome",
       "args": {
-        "notes": "Collected email and CGPA; application now complete",
+        "notes": "All required fields collected",
         "status": "completed"
       },
       "result": {
@@ -94,17 +165,30 @@
         "status": "completed",
         "note": "Outcome recorded. It is written to the database when the chat closes."
       },
-      "at": "2026-11-14T15:41:44+05:30"
+      "at": "2026-11-14T16:14:45+05:30"
+    },
+    {
+      "name": "set_outcome",
+      "args": {
+        "notes": "All required fields collected",
+        "status": "completed"
+      },
+      "result": {
+        "ok": true,
+        "status": "completed",
+        "note": "Outcome recorded. It is written to the database when the chat closes."
+      },
+      "at": "2026-11-14T16:15:06+05:30"
     },
     {
       "name": "end_conversation",
       "args": {
-        "reason": "Conversation completed after collecting required fields"
+        "reason": "Chat closed"
       },
       "result": {
         "ok": true
       },
-      "at": "2026-11-14T15:41:45+05:30"
+      "at": "2026-11-14T16:15:24+05:30"
     }
   ],
   "api_calls": [
@@ -137,9 +221,9 @@
         "last_contacted_at": null,
         "notes": null,
         "version": 1,
-        "updated_at": "2026-11-14T10:11:37+00:00"
+        "updated_at": "2026-11-14T10:43:49+00:00"
       },
-      "at": "15:41:38",
+      "at": "16:13:50",
       "headers": {}
     },
     {
@@ -173,12 +257,12 @@
         "last_contacted_at": null,
         "notes": null,
         "version": 2,
-        "updated_at": "2026-11-14T10:11:43+00:00"
+        "updated_at": "2026-11-14T10:44:13+00:00"
       },
-      "at": "15:41:42",
+      "at": "16:14:13",
       "headers": {
         "Content-Type": "application/json",
-        "Idempotency-Key": "13b25507-6ffb-4fdb-9c18-5d08a951a5c0",
+        "Idempotency-Key": "a71c929b-5f4f-4a7d-9951-3d2bea7b050b",
         "If-Match": "\"1\""
       }
     },
@@ -213,12 +297,12 @@
         "last_contacted_at": null,
         "notes": null,
         "version": 3,
-        "updated_at": "2026-11-14T10:11:44+00:00"
+        "updated_at": "2026-11-14T10:44:45+00:00"
       },
-      "at": "15:41:44",
+      "at": "16:14:45",
       "headers": {
         "Content-Type": "application/json",
-        "Idempotency-Key": "650a79c2-770c-4f2e-a9b6-23213b50c7a7",
+        "Idempotency-Key": "0fbe8cc4-f35b-42c1-a446-48b09827df33",
         "If-Match": "\"2\""
       }
     },
@@ -228,9 +312,9 @@
       "status": 200,
       "request": {
         "collection_status": "completed",
-        "last_contacted_at": "2026-11-14T15:41:45+05:30",
+        "last_contacted_at": "2026-11-14T16:15:24+05:30",
         "attempt_count": 1,
-        "notes": "Collected email and CGPA; application now complete"
+        "notes": "All required fields collected"
       },
       "response": {
         "id": "c001",
@@ -253,15 +337,15 @@
         "phone": "+915508135176",
         "collection_status": "completed",
         "attempt_count": 1,
-        "last_contacted_at": "2026-11-14T15:41:45+05:30",
-        "notes": "Collected email and CGPA; application now complete",
+        "last_contacted_at": "2026-11-14T16:15:24+05:30",
+        "notes": "All required fields collected",
         "version": 4,
-        "updated_at": "2026-11-14T10:11:46+00:00"
+        "updated_at": "2026-11-14T10:45:26+00:00"
       },
-      "at": "15:41:45",
+      "at": "16:15:25",
       "headers": {
         "Content-Type": "application/json",
-        "Idempotency-Key": "8ff163c8-149f-40a0-91fb-098de7ccda12",
+        "Idempotency-Key": "97cb9edf-635e-4696-be83-270bddde4cbb",
         "If-Match": "\"3\""
       }
     }
@@ -287,9 +371,9 @@
     "phone": "+915508135176",
     "collection_status": "completed",
     "attempt_count": 1,
-    "last_contacted_at": "2026-11-14T15:41:45+05:30",
-    "notes": "Collected email and CGPA; application now complete",
+    "last_contacted_at": "2026-11-14T16:15:24+05:30",
+    "notes": "All required fields collected",
     "version": 4,
-    "updated_at": "2026-11-14T10:11:46+00:00"
+    "updated_at": "2026-11-14T10:45:26+00:00"
   }
 }
