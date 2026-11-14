@@ -169,9 +169,11 @@ missing or invalid — the tool rejects it.
   `branch` separately, `completed`.
 - `tests/test_guards.py`: 48 checks covering validation, the evidence guard and message
   cleanup, all passing.
-- The three transcripts in `runs/` were regenerated after the last fix, so they show current
-  behaviour: a clean completion (c001), dirty data corrected by the candidate (c008), and a
-  candidate asking to continue later (c002).
+- `runs/` holds five transcripts, each with the chat, the tool calls and every raw API call:
+  a clean completion (c001), dirty data corrected by the candidate (c008), a candidate asking
+  to continue later (c002), an invalid email rejected and re-asked until it was right (c007),
+  and a candidate who could not answer, where the agent changed tack rather than repeating
+  itself and ended `needs_human` (c004).
 - c008: spotted `graduation_year: 2031` unprompted, refused to accept "my CGPA is 85" as a
   10-point value, and on `/quit` recorded `in_progress` with accurate notes.
 - c003: no conversation started, nothing written.

@@ -1,6 +1,0 @@
-Candidate c007  -  Vikram Rao
-Outcome: no_answer
-------------------------------------------------------------
-------------------------------------------------------------
-Fields written: none
-Notes: Chat ended before completion. Still needed: email, college, degree, branch, graduation_year, cgpa, preferred_location, available_from, internship_duration_months.
