@@ -5,11 +5,11 @@ AGENT:     Sorry, I am having a technical problem at my end. Can I message you a
 CANDIDATE: yes
 AGENT:     Sorry, I am having a technical problem at my end. Can I message you again shortly?
 CANDIDATE: abc@gmail
-AGENT:     Sorry, I am having a technical problem at my end. Can I message you again shortly?
+AGENT:     Could you please share your full email address?
 CANDIDATE: oh sorry its vikram.rao@gmail.com
-AGENT:     Sorry, I am having a technical problem at my end. Can I message you again shortly?
+AGENT:     Which college are you attending?
 CANDIDATE: mpstme mumbai
 AGENT:     Sorry, I am having a technical problem at my end. Can I message you again shortly?
 ------------------------------------------------------------
-Fields written: none
-Notes: Chat ended before completion. Still needed: college, degree, branch, graduation_year, cgpa, preferred_location, available_from, internship_duration_months.
+Fields written: {'email': 'vikram.rao@gmail.com', 'college': 'mpstme mumbai'}
+Notes: Candidate provided email, college. Still missing degree, branch, graduation_year, cgpa, preferred_location, available_from, internship_duration_months. No refusal or dispute.

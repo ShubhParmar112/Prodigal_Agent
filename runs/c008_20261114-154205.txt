@@ -1,0 +1,12 @@
+Candidate c008  -  Meera Joshi
+Outcome: completed
+------------------------------------------------------------
+AGENT:     Hi Meera, this is Riya from ACME Corp regarding your internship application. Is this a good time to chat?
+CANDIDATE: yes this is meera
+AGENT:     Thanks, Meera. I see your graduation year is listed as 2031 – could you confirm the correct year you’ll graduate?
+CANDIDATE: oh sorry i mistyped, its 2027
+AGENT:     Got it. Could you tell me your CGPA on a 10‑point scale?
+CANDIDATE: my cgpa is 8.5 out of 10
+------------------------------------------------------------
+Fields written: {'graduation_year': 2027, 'cgpa': 8.5}
+Notes: All required fields collected: graduation_year 2027, cgpa 8.5

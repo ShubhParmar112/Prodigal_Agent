@@ -60,7 +60,7 @@ def main():
                         help="seconds to wait for a reply before nudging")
     args = parser.parse_args()
 
-    load_dotenv()
+    load_dotenv(override=True)
     console = Console(legacy_windows=False)
     ui = TerminalUI(console=console, show_trace=not args.no_trace)
 

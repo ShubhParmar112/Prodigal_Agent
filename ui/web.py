@@ -80,7 +80,7 @@ def _on_http(entry):
 
 
 def _start(candidate_id):
-    load_dotenv()
+    load_dotenv(override=True)
     st.session_state.chat = []
     st.session_state.trace = []
     st.session_state.outcome = None
@@ -165,7 +165,7 @@ def _sidebar():
         if right.button("Reset data", use_container_width=True,
                         help="Restore your workspace to the original data"):
             try:
-                load_dotenv()
+                load_dotenv(override=True)
                 CandidateDB().reset()
                 st.session_state.banner = ("info", "Workspace reset to the original data.")
             except CandidateDBError as exc:
