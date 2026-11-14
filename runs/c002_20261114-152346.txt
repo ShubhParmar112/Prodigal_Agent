@@ -1,0 +1,14 @@
+Candidate c002  -  Priya Nair
+Outcome: completed
+------------------------------------------------------------
+AGENT:     Hi Priya, this is Riya from ACME Corp about your internship application. Is this a good time to chat?
+CANDIDATE: yes
+AGENT:     Great! Could you tell me your expected graduation year? (2026, 2027 or 2028)
+CANDIDATE: 2027
+AGENT:     When could you start the internship? (date between Jan 2026 and Dec 2027)
+CANDIDATE: 1 june 2027
+AGENT:     What internship length are you looking for – 2, 3 or 6 months?
+CANDIDATE: 3 months
+------------------------------------------------------------
+Fields written: {'graduation_year': 2027, 'available_from': '2027-06-01', 'internship_duration_months': 3}
+Notes: All required fields collected: graduation_year 2027, available_from 2027-06-01, internship_duration_months 3.

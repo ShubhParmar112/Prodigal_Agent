@@ -1,0 +1,295 @@
+{
+  "candidate_id": "c001",
+  "started_at": "2026-11-14T15:08:50+05:30",
+  "ended_at": "2026-11-14T15:09:37+05:30",
+  "outcome": "completed",
+  "outcome_notes": "All required fields collected: email and cgpa.",
+  "end_reason": "Conversation completed after collecting required fields",
+  "fields_written": {
+    "email": "arnav.mehta123@gmail.com",
+    "cgpa": 9.1
+  },
+  "fields_refused": [],
+  "record_at_start_missing": [],
+  "transcript": [
+    {
+      "role": "agent",
+      "text": "Hi Aarav, this is Riya from ACME Corp about your internship application. Is this you?",
+      "at": "2026-11-14T15:08:52+05:30"
+    },
+    {
+      "role": "candidate",
+      "text": "yes its me",
+      "at": "2026-11-14T15:09:00+05:30"
+    },
+    {
+      "role": "agent",
+      "text": "Great! Could you share your email address?",
+      "at": "2026-11-14T15:09:01+05:30"
+    },
+    {
+      "role": "candidate",
+      "text": "arnav.mehta123@gmail.com",
+      "at": "2026-11-14T15:09:23+05:30"
+    },
+    {
+      "role": "agent",
+      "text": "Thanks! What's your CGPA on a 10-point scale?",
+      "at": "2026-11-14T15:09:25+05:30"
+    },
+    {
+      "role": "candidate",
+      "text": "9.1",
+      "at": "2026-11-14T15:09:30+05:30"
+    },
+    {
+      "role": "agent",
+      "text": "All set, Aarav. Thanks for confirming everything. Have a great day!",
+      "at": "2026-11-14T15:09:36+05:30"
+    }
+  ],
+  "tool_calls": [
+    {
+      "name": "save_fields",
+      "args": {
+        "email": "arnav.mehta123@gmail.com",
+        "reason": "Candidate provided email address"
+      },
+      "result": {
+        "ok": true,
+        "saved": {
+          "email": "arnav.mehta123@gmail.com"
+        },
+        "reason": "Candidate provided email address",
+        "still_needed": [
+          "cgpa"
+        ]
+      },
+      "at": "2026-11-14T15:09:24+05:30"
+    },
+    {
+      "name": "save_fields",
+      "args": {
+        "cgpa": 9.1,
+        "reason": "Candidate provided CGPA"
+      },
+      "result": {
+        "ok": true,
+        "saved": {
+          "cgpa": 9.1
+        },
+        "reason": "Candidate provided CGPA",
+        "still_needed": []
+      },
+      "at": "2026-11-14T15:09:33+05:30"
+    },
+    {
+      "name": "set_outcome",
+      "args": {
+        "notes": "All required fields collected: email and cgpa.",
+        "status": "completed"
+      },
+      "result": {
+        "ok": true,
+        "status": "completed",
+        "note": "Outcome recorded. It is written to the database when the chat closes."
+      },
+      "at": "2026-11-14T15:09:34+05:30"
+    },
+    {
+      "name": "end_conversation",
+      "args": {
+        "reason": "Conversation completed after collecting required fields"
+      },
+      "result": {
+        "ok": true
+      },
+      "at": "2026-11-14T15:09:36+05:30"
+    }
+  ],
+  "api_calls": [
+    {
+      "method": "GET",
+      "path": "/v1/candidates/c001",
+      "status": 200,
+      "request": null,
+      "response": {
+        "id": "c001",
+        "full_name": "Aarav Mehta",
+        "email": null,
+        "college": "NMIMS MPSTME, Mumbai",
+        "degree": "B.Tech",
+        "branch": "Computer Engineering",
+        "graduation_year": 2027,
+        "cgpa": null,
+        "preferred_location": "Mumbai",
+        "available_from": "2027-01-04",
+        "internship_duration_months": 6,
+        "linkedin_url": "https://www.linkedin.com/in/aarav-mehta-example",
+        "github_url": null,
+        "skills": [
+          "Python",
+          "SQL"
+        ],
+        "phone": "+915508135176",
+        "collection_status": "pending",
+        "attempt_count": 0,
+        "last_contacted_at": null,
+        "notes": null,
+        "version": 1,
+        "updated_at": "2026-11-14T09:34:40+00:00"
+      },
+      "at": "15:08:51",
+      "headers": {}
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/candidates/c001",
+      "status": 200,
+      "request": {
+        "email": "arnav.mehta123@gmail.com"
+      },
+      "response": {
+        "id": "c001",
+        "full_name": "Aarav Mehta",
+        "email": "arnav.mehta123@gmail.com",
+        "college": "NMIMS MPSTME, Mumbai",
+        "degree": "B.Tech",
+        "branch": "Computer Engineering",
+        "graduation_year": 2027,
+        "cgpa": null,
+        "preferred_location": "Mumbai",
+        "available_from": "2027-01-04",
+        "internship_duration_months": 6,
+        "linkedin_url": "https://www.linkedin.com/in/aarav-mehta-example",
+        "github_url": null,
+        "skills": [
+          "Python",
+          "SQL"
+        ],
+        "phone": "+915508135176",
+        "collection_status": "pending",
+        "attempt_count": 0,
+        "last_contacted_at": null,
+        "notes": null,
+        "version": 2,
+        "updated_at": "2026-11-14T09:39:25+00:00"
+      },
+      "at": "15:09:24",
+      "headers": {
+        "Content-Type": "application/json",
+        "Idempotency-Key": "f6ee31b1-d0b4-4991-9841-5f20013c4ba6",
+        "If-Match": "\"1\""
+      }
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/candidates/c001",
+      "status": 200,
+      "request": {
+        "cgpa": 9.1
+      },
+      "response": {
+        "id": "c001",
+        "full_name": "Aarav Mehta",
+        "email": "arnav.mehta123@gmail.com",
+        "college": "NMIMS MPSTME, Mumbai",
+        "degree": "B.Tech",
+        "branch": "Computer Engineering",
+        "graduation_year": 2027,
+        "cgpa": 9.1,
+        "preferred_location": "Mumbai",
+        "available_from": "2027-01-04",
+        "internship_duration_months": 6,
+        "linkedin_url": "https://www.linkedin.com/in/aarav-mehta-example",
+        "github_url": null,
+        "skills": [
+          "Python",
+          "SQL"
+        ],
+        "phone": "+915508135176",
+        "collection_status": "pending",
+        "attempt_count": 0,
+        "last_contacted_at": null,
+        "notes": null,
+        "version": 3,
+        "updated_at": "2026-11-14T09:39:33+00:00"
+      },
+      "at": "15:09:33",
+      "headers": {
+        "Content-Type": "application/json",
+        "Idempotency-Key": "5700c151-0361-4d1b-aba7-fb8005fde9dc",
+        "If-Match": "\"2\""
+      }
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/candidates/c001",
+      "status": 200,
+      "request": {
+        "collection_status": "completed",
+        "last_contacted_at": "2026-11-14T15:09:36+05:30",
+        "attempt_count": 1,
+        "notes": "All required fields collected: email and cgpa."
+      },
+      "response": {
+        "id": "c001",
+        "full_name": "Aarav Mehta",
+        "email": "arnav.mehta123@gmail.com",
+        "college": "NMIMS MPSTME, Mumbai",
+        "degree": "B.Tech",
+        "branch": "Computer Engineering",
+        "graduation_year": 2027,
+        "cgpa": 9.1,
+        "preferred_location": "Mumbai",
+        "available_from": "2027-01-04",
+        "internship_duration_months": 6,
+        "linkedin_url": "https://www.linkedin.com/in/aarav-mehta-example",
+        "github_url": null,
+        "skills": [
+          "Python",
+          "SQL"
+        ],
+        "phone": "+915508135176",
+        "collection_status": "completed",
+        "attempt_count": 1,
+        "last_contacted_at": "2026-11-14T15:09:36+05:30",
+        "notes": "All required fields collected: email and cgpa.",
+        "version": 4,
+        "updated_at": "2026-11-14T09:39:37+00:00"
+      },
+      "at": "15:09:37",
+      "headers": {
+        "Content-Type": "application/json",
+        "Idempotency-Key": "76c86f2c-2f72-4045-ab2c-c526dc064467",
+        "If-Match": "\"3\""
+      }
+    }
+  ],
+  "final_record": {
+    "id": "c001",
+    "full_name": "Aarav Mehta",
+    "email": "arnav.mehta123@gmail.com",
+    "college": "NMIMS MPSTME, Mumbai",
+    "degree": "B.Tech",
+    "branch": "Computer Engineering",
+    "graduation_year": 2027,
+    "cgpa": 9.1,
+    "preferred_location": "Mumbai",
+    "available_from": "2027-01-04",
+    "internship_duration_months": 6,
+    "linkedin_url": "https://www.linkedin.com/in/aarav-mehta-example",
+    "github_url": null,
+    "skills": [
+      "Python",
+      "SQL"
+    ],
+    "phone": "+915508135176",
+    "collection_status": "completed",
+    "attempt_count": 1,
+    "last_contacted_at": "2026-11-14T15:09:36+05:30",
+    "notes": "All required fields collected: email and cgpa.",
+    "version": 4,
+    "updated_at": "2026-11-14T09:39:37+00:00"
+  }
+}

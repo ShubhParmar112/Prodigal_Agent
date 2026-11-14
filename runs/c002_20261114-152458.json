@@ -1,0 +1,365 @@
+{
+  "candidate_id": "c002",
+  "started_at": "2026-11-14T15:24:06+05:30",
+  "ended_at": "2026-11-14T15:24:58+05:30",
+  "outcome": "completed",
+  "outcome_notes": "All required fields collected: graduation_year=2027, available_from=2027-06-01, internship_duration_months=3.",
+  "end_reason": "Conversation completed after collecting all required fields",
+  "fields_written": {
+    "graduation_year": 2027,
+    "available_from": "2027-06-01",
+    "internship_duration_months": 3
+  },
+  "fields_refused": [],
+  "record_at_start_missing": [],
+  "transcript": [
+    {
+      "role": "agent",
+      "text": "Hi Priya, this is Riya from ACME Corp regarding your internship application. Is this a good time to chat?",
+      "at": "2026-11-14T15:24:08+05:30"
+    },
+    {
+      "role": "candidate",
+      "text": "yes",
+      "at": "2026-11-14T15:24:08+05:30"
+    },
+    {
+      "role": "agent",
+      "text": "Great! Could you tell me which year you’re graduating, 2026, 2027, or 2028?",
+      "at": "2026-11-14T15:24:09+05:30"
+    },
+    {
+      "role": "candidate",
+      "text": "2027",
+      "at": "2026-11-14T15:24:09+05:30"
+    },
+    {
+      "role": "agent",
+      "text": "When would you be able to start the internship? Please give a date.",
+      "at": "2026-11-14T15:24:11+05:30"
+    },
+    {
+      "role": "candidate",
+      "text": "1 june 2027",
+      "at": "2026-11-14T15:24:11+05:30"
+    },
+    {
+      "role": "agent",
+      "text": "How many months would you like the internship to be – 2, 3, or 6? What duration are you looking for – 2, 3, or 6 months? We have completed the conversation? No, we still need internship_duration_months. We must ask and wait. Could you let me know the internship length you prefer – 2, 3, or 6 months? We need to wrap up after they answer. But currently no answer. I think we must wait.",
+      "at": "2026-11-14T15:24:25+05:30"
+    },
+    {
+      "role": "candidate",
+      "text": "3 months",
+      "at": "2026-11-14T15:24:25+05:30"
+    },
+    {
+      "role": "agent",
+      "text": "Thanks Priya, I’ve noted your graduation in 2027, start date 1 June 2027, and a 3‑month internship. We’ll be in touch soon.",
+      "at": "2026-11-14T15:24:57+05:30"
+    }
+  ],
+  "tool_calls": [
+    {
+      "name": "save_fields",
+      "args": {
+        "graduation_year": 2027,
+        "reason": "Candidate confirmed graduation year as 2027"
+      },
+      "result": {
+        "ok": true,
+        "saved": {
+          "graduation_year": 2027
+        },
+        "reason": "Candidate confirmed graduation year as 2027",
+        "still_needed": [
+          "available_from",
+          "internship_duration_months"
+        ]
+      },
+      "at": "2026-11-14T15:24:10+05:30"
+    },
+    {
+      "name": "save_fields",
+      "args": {
+        "available_from": "2027-06-01",
+        "reason": "Candidate said they can start on 1 June 2027"
+      },
+      "result": {
+        "ok": true,
+        "saved": {
+          "available_from": "2027-06-01"
+        },
+        "reason": "Candidate said they can start on 1 June 2027",
+        "still_needed": [
+          "internship_duration_months"
+        ]
+      },
+      "at": "2026-11-14T15:24:11+05:30"
+    },
+    {
+      "name": "save_fields",
+      "args": {
+        "internship_duration_months": 3,
+        "reason": "Candidate prefers a 3‑month internship"
+      },
+      "result": {
+        "ok": true,
+        "saved": {
+          "internship_duration_months": 3
+        },
+        "reason": "Candidate prefers a 3‑month internship",
+        "still_needed": []
+      },
+      "at": "2026-11-14T15:24:33+05:30"
+    },
+    {
+      "name": "set_outcome",
+      "args": {
+        "notes": "All required fields collected: graduation_year=2027, available_from=2027-06-01, internship_duration_months=3.",
+        "status": "completed"
+      },
+      "result": {
+        "ok": true,
+        "status": "completed",
+        "note": "Outcome recorded. It is written to the database when the chat closes."
+      },
+      "at": "2026-11-14T15:24:37+05:30"
+    },
+    {
+      "name": "end_conversation",
+      "args": {
+        "reason": "Conversation completed after collecting all required fields"
+      },
+      "result": {
+        "ok": true
+      },
+      "at": "2026-11-14T15:24:57+05:30"
+    }
+  ],
+  "api_calls": [
+    {
+      "method": "GET",
+      "path": "/v1/candidates/c002",
+      "status": 200,
+      "request": null,
+      "response": {
+        "id": "c002",
+        "full_name": "Priya Nair",
+        "email": "priya.nair@example.com",
+        "college": "VJTI, Mumbai",
+        "degree": "B.Tech",
+        "branch": "Information Technology",
+        "graduation_year": null,
+        "cgpa": 8.7,
+        "preferred_location": "Remote",
+        "available_from": null,
+        "internship_duration_months": null,
+        "linkedin_url": null,
+        "github_url": null,
+        "skills": [
+          "Java",
+          "Spring Boot"
+        ],
+        "phone": "+915412600709",
+        "collection_status": "pending",
+        "attempt_count": 0,
+        "last_contacted_at": null,
+        "notes": null,
+        "version": 1,
+        "updated_at": "2026-11-14T09:54:06+00:00"
+      },
+      "at": "15:24:07",
+      "headers": {}
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/candidates/c002",
+      "status": 200,
+      "request": {
+        "graduation_year": 2027
+      },
+      "response": {
+        "id": "c002",
+        "full_name": "Priya Nair",
+        "email": "priya.nair@example.com",
+        "college": "VJTI, Mumbai",
+        "degree": "B.Tech",
+        "branch": "Information Technology",
+        "graduation_year": 2027,
+        "cgpa": 8.7,
+        "preferred_location": "Remote",
+        "available_from": null,
+        "internship_duration_months": null,
+        "linkedin_url": null,
+        "github_url": null,
+        "skills": [
+          "Java",
+          "Spring Boot"
+        ],
+        "phone": "+915412600709",
+        "collection_status": "pending",
+        "attempt_count": 0,
+        "last_contacted_at": null,
+        "notes": null,
+        "version": 2,
+        "updated_at": "2026-11-14T09:54:10+00:00"
+      },
+      "at": "15:24:10",
+      "headers": {
+        "Content-Type": "application/json",
+        "Idempotency-Key": "72003929-e808-413a-a4ab-9056e59f9540",
+        "If-Match": "\"1\""
+      }
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/candidates/c002",
+      "status": 200,
+      "request": {
+        "available_from": "2027-06-01"
+      },
+      "response": {
+        "id": "c002",
+        "full_name": "Priya Nair",
+        "email": "priya.nair@example.com",
+        "college": "VJTI, Mumbai",
+        "degree": "B.Tech",
+        "branch": "Information Technology",
+        "graduation_year": 2027,
+        "cgpa": 8.7,
+        "preferred_location": "Remote",
+        "available_from": "2027-06-01",
+        "internship_duration_months": null,
+        "linkedin_url": null,
+        "github_url": null,
+        "skills": [
+          "Java",
+          "Spring Boot"
+        ],
+        "phone": "+915412600709",
+        "collection_status": "pending",
+        "attempt_count": 0,
+        "last_contacted_at": null,
+        "notes": null,
+        "version": 3,
+        "updated_at": "2026-11-14T09:54:12+00:00"
+      },
+      "at": "15:24:11",
+      "headers": {
+        "Content-Type": "application/json",
+        "Idempotency-Key": "ad314c77-05b1-4c8d-bf1e-7c006dd98943",
+        "If-Match": "\"2\""
+      }
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/candidates/c002",
+      "status": 200,
+      "request": {
+        "internship_duration_months": 3
+      },
+      "response": {
+        "id": "c002",
+        "full_name": "Priya Nair",
+        "email": "priya.nair@example.com",
+        "college": "VJTI, Mumbai",
+        "degree": "B.Tech",
+        "branch": "Information Technology",
+        "graduation_year": 2027,
+        "cgpa": 8.7,
+        "preferred_location": "Remote",
+        "available_from": "2027-06-01",
+        "internship_duration_months": 3,
+        "linkedin_url": null,
+        "github_url": null,
+        "skills": [
+          "Java",
+          "Spring Boot"
+        ],
+        "phone": "+915412600709",
+        "collection_status": "pending",
+        "attempt_count": 0,
+        "last_contacted_at": null,
+        "notes": null,
+        "version": 4,
+        "updated_at": "2026-11-14T09:54:34+00:00"
+      },
+      "at": "15:24:33",
+      "headers": {
+        "Content-Type": "application/json",
+        "Idempotency-Key": "b2e96059-2d1d-4c05-986e-3d27744e3b6f",
+        "If-Match": "\"3\""
+      }
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/candidates/c002",
+      "status": 200,
+      "request": {
+        "collection_status": "completed",
+        "last_contacted_at": "2026-11-14T15:24:57+05:30",
+        "attempt_count": 1,
+        "notes": "All required fields collected: graduation_year=2027, available_from=2027-06-01, internship_duration_months=3."
+      },
+      "response": {
+        "id": "c002",
+        "full_name": "Priya Nair",
+        "email": "priya.nair@example.com",
+        "college": "VJTI, Mumbai",
+        "degree": "B.Tech",
+        "branch": "Information Technology",
+        "graduation_year": 2027,
+        "cgpa": 8.7,
+        "preferred_location": "Remote",
+        "available_from": "2027-06-01",
+        "internship_duration_months": 3,
+        "linkedin_url": null,
+        "github_url": null,
+        "skills": [
+          "Java",
+          "Spring Boot"
+        ],
+        "phone": "+915412600709",
+        "collection_status": "completed",
+        "attempt_count": 1,
+        "last_contacted_at": "2026-11-14T15:24:57+05:30",
+        "notes": "All required fields collected: graduation_year=2027, available_from=2027-06-01, internship_duration_months=3.",
+        "version": 5,
+        "updated_at": "2026-11-14T09:54:59+00:00"
+      },
+      "at": "15:24:58",
+      "headers": {
+        "Content-Type": "application/json",
+        "Idempotency-Key": "cbbb91e6-dea2-4610-85e7-7cd8d6d4739d",
+        "If-Match": "\"4\""
+      }
+    }
+  ],
+  "final_record": {
+    "id": "c002",
+    "full_name": "Priya Nair",
+    "email": "priya.nair@example.com",
+    "college": "VJTI, Mumbai",
+    "degree": "B.Tech",
+    "branch": "Information Technology",
+    "graduation_year": 2027,
+    "cgpa": 8.7,
+    "preferred_location": "Remote",
+    "available_from": "2027-06-01",
+    "internship_duration_months": 3,
+    "linkedin_url": null,
+    "github_url": null,
+    "skills": [
+      "Java",
+      "Spring Boot"
+    ],
+    "phone": "+915412600709",
+    "collection_status": "completed",
+    "attempt_count": 1,
+    "last_contacted_at": "2026-11-14T15:24:57+05:30",
+    "notes": "All required fields collected: graduation_year=2027, available_from=2027-06-01, internship_duration_months=3.",
+    "version": 5,
+    "updated_at": "2026-11-14T09:54:59+00:00"
+  }
+}

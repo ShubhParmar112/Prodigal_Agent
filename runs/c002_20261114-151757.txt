@@ -1,0 +1,8 @@
+Candidate c002  -  Priya Nair
+Outcome: in_progress
+------------------------------------------------------------
+AGENT:     Hi Priya, this is Riya from ACME Corp. I’m reaching out about your internship application – is this a good time to chat?
+CANDIDATE: yes
+------------------------------------------------------------
+Fields written: none
+Notes: Missing fields: available_from, internship_duration_months. Candidate confirmed chat but did not provide these details before ending.

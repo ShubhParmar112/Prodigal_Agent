@@ -1,0 +1,13 @@
+Candidate c001  -  Aarav Mehta
+Outcome: completed
+------------------------------------------------------------
+AGENT:     Hi Aarav, this is Riya from ACME Corp about your internship application. Is this you?
+CANDIDATE: yes its me
+AGENT:     Great! Could you share your email address?
+CANDIDATE: arnav.mehta123@gmail.com
+AGENT:     Thanks! What's your CGPA on a 10-point scale?
+CANDIDATE: 9.1
+AGENT:     All set, Aarav. Thanks for confirming everything. Have a great day!
+------------------------------------------------------------
+Fields written: {'email': 'arnav.mehta123@gmail.com', 'cgpa': 9.1}
+Notes: All required fields collected: email and cgpa.

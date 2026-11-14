@@ -1,0 +1,10 @@
+Candidate c002  -  Priya Nair
+Outcome: in_progress
+------------------------------------------------------------
+CANDIDATE: yes
+CANDIDATE: 2027
+CANDIDATE: 1 june 2027
+CANDIDATE: 3 months
+------------------------------------------------------------
+Fields written: none
+Notes: Chat ended before completion. Still needed: graduation_year, available_from, internship_duration_months.
